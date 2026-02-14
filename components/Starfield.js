@@ -22,19 +22,22 @@ export default function Starfield() {
         let shootingStarTimer = 0;
 
         const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+
             // Regenerate stars on resize
             layers.forEach(layer => {
                 layer.stars = [];
                 for (let i = 0; i < layer.count; i++) {
                     layer.stars.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
+                        x: Math.random() * window.innerWidth, // Use logical pixels for coords
+                        y: Math.random() * window.innerHeight,
                         size: Math.random() * layer.maxSize + 0.5,
                         twinkleSpeed: 0.005 + Math.random() * 0.02,
                         twinkleOffset: Math.random() * Math.PI * 2,
-                        hue: Math.random() > 0.8 ? (Math.random() > 0.5 ? 220 : 30) : 0, // Some blue/gold stars
+                        hue: Math.random() > 0.8 ? (Math.random() > 0.5 ? 220 : 30) : 0,
                     });
                 }
             });
@@ -50,26 +53,29 @@ export default function Starfield() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw nebula gradient overlay
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
             const grad = ctx.createRadialGradient(
-                canvas.width * 0.3, canvas.height * 0.7, 0,
-                canvas.width * 0.3, canvas.height * 0.7, canvas.width * 0.8
+                w * 0.3, h * 0.7, 0,
+                w * 0.3, h * 0.7, w * 0.8
             );
             grad.addColorStop(0, 'rgba(100, 30, 120, 0.08)');
             grad.addColorStop(0.5, 'rgba(40, 20, 80, 0.05)');
             grad.addColorStop(1, 'transparent');
             ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, w, h);
 
             // Second nebula patch
             const grad2 = ctx.createRadialGradient(
-                canvas.width * 0.7, canvas.height * 0.3, 0,
-                canvas.width * 0.7, canvas.height * 0.3, canvas.width * 0.6
+                w * 0.7, h * 0.3, 0,
+                w * 0.7, h * 0.3, w * 0.6
             );
             grad2.addColorStop(0, 'rgba(30, 60, 140, 0.06)');
             grad2.addColorStop(0.5, 'rgba(60, 20, 100, 0.04)');
             grad2.addColorStop(1, 'transparent');
             ctx.fillStyle = grad2;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, w, h);
 
             // Draw stars per layer
             layers.forEach((layer) => {
@@ -99,8 +105,8 @@ export default function Starfield() {
                     // Slowly drift
                     star.y -= layer.speed;
                     if (star.y < -5) {
-                        star.y = canvas.height + 5;
-                        star.x = Math.random() * canvas.width;
+                        star.y = h + 5;
+                        star.x = Math.random() * w;
                     }
                 });
             });
@@ -110,8 +116,8 @@ export default function Starfield() {
             if (shootingStarTimer > 180 + Math.random() * 300) {
                 shootingStarTimer = 0;
                 shootingStars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height * 0.5,
+                    x: Math.random() * w,
+                    y: Math.random() * h * 0.5,
                     vx: 4 + Math.random() * 4,
                     vy: 2 + Math.random() * 3,
                     life: 1,

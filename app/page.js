@@ -94,8 +94,8 @@ export default function Home() {
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
 
-        // Responsive Scaling - match SVG viewBox (1500x800) aspect ratio
-        const scaleFactor = Math.min(rect.width / 1500, rect.height / 800);
+        // Responsive Scaling - match SVG viewBox (1200x800) aspect ratio
+        const scaleFactor = Math.min(rect.width / 1200, rect.height / 800);
 
         // 1. Animate Asteroids
         asteroidsRef.current.forEach((a, i) => {
@@ -287,16 +287,25 @@ export default function Home() {
                         </div>
 
                         {/* Orbit Paths (SVG for smoothness) */}
-                        <svg className="orbits-svg" width="100%" height="100%" viewBox="-750 -400 1500 800">
-                            {/* Calculated based on radii */}
-                            <ellipse cx="0" cy="0" rx="120" ry="40" className="orbit-path" />
-                            <ellipse cx="0" cy="0" rx="190" ry="65" className="orbit-path" />
-                            <ellipse cx="0" cy="0" rx="270" ry="95" className="orbit-path-active" />
-                            <ellipse cx="0" cy="0" rx="340" ry="120" className="orbit-path" />
-                            <ellipse cx="0" cy="0" rx="400" ry="140" className="orbit-path" strokeDasharray="4 4" style={{ opacity: 0.3 }} /> {/* Asteroid belt */}
-                            <ellipse cx="0" cy="0" rx="490" ry="170" className="orbit-path" />
-                            <ellipse cx="0" cy="0" rx="500" ry="175" className="orbit-path" />
-                        </svg>
+                        <div className="orbits-svg-container" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', pointerEvents: 'none', zIndex: 10 }}>
+                            <svg viewBox="-600 -400 1200 800" className="orbits-svg" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
+                                <defs>
+                                    <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
+                                        <stop offset="50%" stopColor="rgba(255,255,255,0.15)" />
+                                        <stop offset="100%" stopColor="rgba(255,255,255,0.05)" />
+                                    </linearGradient>
+                                </defs>
+                                {/* Calculated based on radii */}
+                                <ellipse cx="0" cy="0" rx="120" ry="40" className="orbit-path" />
+                                <ellipse cx="0" cy="0" rx="190" ry="65" className="orbit-path" />
+                                <ellipse cx="0" cy="0" rx="270" ry="95" className="orbit-path-active" />
+                                <ellipse cx="0" cy="0" rx="340" ry="120" className="orbit-path" />
+                                <ellipse cx="0" cy="0" rx="400" ry="140" className="orbit-path" strokeDasharray="4 4" style={{ opacity: 0.3 }} /> {/* Asteroid belt */}
+                                <ellipse cx="0" cy="0" rx="490" ry="170" className="orbit-path" />
+                                <ellipse cx="0" cy="0" rx="500" ry="175" className="orbit-path" />
+                            </svg>
+                        </div>
 
                         {/* 🌑 ASTEROIDS */}
                         {asteroidsRef.current.map((a, i) => (
