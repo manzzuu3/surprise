@@ -34,7 +34,7 @@ export default function MusicPlayer() {
             <audio
                 ref={audioRef}
                 loop
-                src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_244498b839.mp3?filename=romantic-piano-124976.mp3"
+                src="/aha_allari_allari.mp3"
             />
             <button
                 onClick={togglePlay}
@@ -59,7 +59,7 @@ export default function MusicPlayer() {
                 fontFamily: "'Outfit', sans-serif",
                 marginTop: '2px'
             }}>
-                {isPlaying ? 'Playing our song...' : 'Play Music'}
+                {isPlaying ? 'Playing Aha Allari...' : 'Play Aha Allari'}
             </span>
         </div>
     );
