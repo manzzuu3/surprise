@@ -1,0 +1,255 @@
+.playerContainer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 180px;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.bear {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* Head */
+.head {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: 110px;
+    height: 95px;
+    background: radial-gradient(circle at 30% 30%, #a06a3f, #8d5524);
+    border-radius: 45% 45% 40% 40%;
+    z-index: 5;
+}
+
+/* Ears */
+.ears {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+    z-index: 1;
+}
+
+.earLeft,
+.earRight {
+    width: 35px;
+    height: 35px;
+    background: #8d5524;
+    border-radius: 50%;
+    position: relative;
+    border: 3px solid #6b401b;
+}
+
+.earLeft::after,
+.earRight::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    background: #deb887;
+    /* Burlywood/Tan */
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+/* Face Details */
+.eyes {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 28px;
+    margin-top: 40px;
+    position: relative;
+}
+
+.eye {
+    width: 12px;
+    height: 12px;
+    background: #000;
+    border-radius: 50%;
+    position: relative;
+    animation: blink 4s infinite;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.eye::before {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+}
+
+@keyframes blink {
+
+    0%,
+    96%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    98% {
+        transform: scaleY(0.1);
+    }
+}
+
+.cheeks {
+    position: absolute;
+    top: 52px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.cheek {
+    width: 15px;
+    height: 8px;
+    background: #ffb6c1;
+    /* Pink cheeks */
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.snout {
+    position: absolute;
+    bottom: 12px;
+    left: 35px;
+    width: 40px;
+    height: 28px;
+    background: #deb887;
+    border-radius: 20px 20px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nose {
+    width: 16px;
+    height: 10px;
+    background: #3e2723;
+    border-radius: 50%;
+    margin-top: -5px;
+}
+
+.mouth {
+    width: 10px;
+    height: 5px;
+    border-bottom: 2px solid #3e2723;
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+/* Body */
+.body {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    width: 100px;
+    height: 80px;
+    background: radial-gradient(circle at 70% 30%, #a06a3f, #8d5524);
+    border-radius: 40% 40% 45% 45%;
+    z-index: 2;
+}
+
+.belly {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 60px;
+    height: 50px;
+    background: #deb887;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+/* Limbs */
+.armLeft,
+.armRight {
+    position: absolute;
+    top: 105px;
+    width: 35px;
+    height: 65px;
+    background: #8d5524;
+    border-radius: 20px;
+    z-index: 1;
+    transform-origin: 50% 10px;
+    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.armLeft {
+    left: 0;
+}
+
+.armRight {
+    right: 0;
+}
+
+.legs {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+    z-index: 1;
+}
+
+.leg {
+    width: 40px;
+    height: 35px;
+    background: #8d5524;
+    border-radius: 20px 20px 15px 15px;
+    margin-bottom: -5px;
+    position: relative;
+}
+
+.leg::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 20px;
+    height: 15px;
+    background: #deb887;
+    /* Paw pad */
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .playerContainer {
+        transform: translateX(-50%) scale(0.85);
+        bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .playerContainer {
+        transform: translateX(-50%) scale(0.7);
+        bottom: 10px;
+    }
+}

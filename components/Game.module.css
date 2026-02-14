@@ -1,0 +1,302 @@
+.ballWrapper {
+    position: absolute;
+    bottom: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    /* Ensure draggable ball is on top */
+    width: 60px;
+    height: 60px;
+}
+
+.ball {
+    width: 60px;
+    height: 60px;
+    touch-action: none;
+    /* Prevent scroll on touch devices */
+}
+
+/* Texture (Heart) - same as before but ensured styles exist */
+.ballTexture {
+    width: 100%;
+    height: 100%;
+    background-color: #ff3366;
+    display: inline-block;
+    transform: rotate(-45deg);
+    position: relative;
+    box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ballTexture::before,
+.ballTexture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #ff3366;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.ballTexture::before {
+    top: -50%;
+    left: 0;
+}
+
+.ballTexture::after {
+    top: 0;
+    left: 50%;
+}
+
+/* Game CSS - ensure wrappers and z-indices are correct */
+.gameContainer {
+    width: 100vw;
+    height: 100vh;
+    background: #ffe6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+.room {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.wallBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #ffd1dc, #ff99cc);
+    transform: translateZ(-300px) scale(2);
+    /* Push further back and scale up more */
+    z-index: -10;
+}
+
+.wallLeft {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #ffcccc, transparent);
+    transform: rotateY(90deg) translateZ(-500px) scale(1.5);
+    /* Scale up side walls */
+    transform-origin: left;
+    z-index: -5;
+    opacity: 0.5;
+}
+
+.wallRight {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, #ffcccc, transparent);
+    transform: rotateY(-90deg) translateZ(-500px) scale(1.5);
+    /* Scale up side walls */
+    transform-origin: right;
+    z-index: -5;
+    opacity: 0.5;
+}
+
+.floor {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background:
+        linear-gradient(to bottom, #ff9999 0%, #ff6666 100%),
+        repeating-linear-gradient(90deg, transparent 0, transparent 40px, rgba(255, 255, 255, 0.2) 40px, rgba(255, 255, 255, 0.2) 42px);
+    transform: rotateX(60deg) scale(3);
+    /* Larger floor */
+    transform-origin: bottom;
+    z-index: -1;
+    box-shadow: 0 -50px 100px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Title: Will you be my Valentine? */
+.mainTitle {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(50px);
+    /* Bring forward! */
+    font-family: 'Brush Script MT', cursive;
+    font-size: 5rem;
+    color: #ff0055;
+    /* Hotter pink/red */
+    text-shadow:
+        3px 3px 0px #fff,
+        0 0 20px rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    opacity: 1;
+    /* Fully visible */
+    z-index: 100;
+    /* On top of everything */
+    pointer-events: none;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) translateZ(50px) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateZ(50px) scale(1.05);
+    }
+}
+
+.netSwish {
+    animation: swish 0.6s ease-out !important;
+}
+
+@keyframes swish {
+    0% {
+        transform: perspective(200px) rotateX(10deg) scaleY(1);
+    }
+
+    30% {
+        transform: perspective(200px) rotateX(30deg) scaleY(1.4) scaleX(0.7);
+    }
+
+    /* Big stretch down */
+    60% {
+        transform: perspective(200px) rotateX(0deg) scaleY(0.9) scaleX(1.1);
+    }
+
+    /* Squish up */
+    100% {
+        transform: perspective(200px) rotateX(10deg) scaleY(1);
+    }
+}
+
+.bgEmoji {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.6;
+    z-index: 0;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Removed .title */
+
+.scoreBoard {
+    font-size: 1.5rem;
+    color: #d32f2f;
+    margin-top: 1rem;
+    font-family: var(--font-family);
+    font-weight: bold;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 15px;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.message {
+    height: 2rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: #ff0066;
+    z-index: 100;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+    pointer-events: none;
+}
+
+.hoopsWrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 120px;
+    /* Push hoops down significantly */
+    z-index: 10;
+    transform: translateZ(50px);
+}
+
+.trajectorySvg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2000px;
+    /* Huge to prevent clipping */
+    height: 2000px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 3rem;
+        top: 12%;
+        white-space: normal;
+        /* Allow wrapping on small screens */
+        text-align: center;
+        width: 90%;
+    }
+
+    .hoopsWrapper {
+        margin-top: 100px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .ballWrapper {
+        bottom: 100px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .ball {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainTitle {
+        font-size: 2.2rem;
+        top: 10%;
+    }
+
+    .hoopsWrapper {
+        margin-top: 80px;
+    }
+
+    .floor {
+        height: 35%;
+        transform: rotateX(60deg) scale(4);
+        /* Larger scale to cover wider aspect ratio if needed */
+    }
+
+    .bgEmoji {
+        font-size: 2rem;
+    }
+}
